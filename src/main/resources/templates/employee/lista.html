@@ -16,7 +16,7 @@
             <input type="text" class="form-control" placeholder="Texto a buscar" name="search">
             <div class="input-group-append">
                 <button class="btn btn-outline-primary ml-2 mr-2" type="submit">Buscar</button>
-                <a th:href="@{'/employee'}" class="btn btn-outline-danger">Limpiar</a>
+                <a th:href="@{'/employee/lista'}" class="btn btn-outline-danger">Limpiar</a>
             </div>
         </form>
 
@@ -35,15 +35,15 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tr th:each="job, info : ${listaEmployee}">
+                <tr th:each="x, info : ${listaEmployee}">
                     <td th:text="${info.index + 1}"></td>
-                    <td th:text="${job.firstName}"></td>
-                    <td th:text="${job.lastName}"></td>
-                    <td th:text="${job.jobs.job_title}"></td>
-                    <td th:text="${job.department.departmentname}"></td>
-                    <td th:text="${job.department.departmentname}"></td>
-                    <td><a class="btn btn-primary" th:href="@{'/job/edit' + '?id=' + ${job.employeeId}}">Editar</a></td>
-                    <td><a class="btn btn-danger" th:href="@{'/job/delete' + '?id=' + ${job.employeeId}}">Borrar</a></td>
+                    <td th:text="${x.firstName}"></td>
+                    <td th:text="${x.lastName}"></td>
+                    <td th:text="${x.jobs.job_title}"></td>
+                    <td th:text="${x.department.departmentname}"></td>
+                    <td th:text="${x.department.departmentname}"></td>
+                    <td><a class="btn btn-primary" th:href="@{'/job/edit' + '?id=' + ${x.employeeId}}">Editar</a></td>
+                    <td><a class="btn btn-danger" th:href="@{'/job/delete' + '?id=' + ${x.employeeId}}">Borrar</a></td>
                 </tr>
             </table>
         </div>

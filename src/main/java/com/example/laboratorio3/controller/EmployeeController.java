@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -34,11 +36,13 @@ public class EmployeeController {
     public String listaEmployee(Model model) {
 
         List<Employees> lista = employeesRepository.findAll();
+        List<Job> listaJob = jobRepository.findAll();
         model.addAttribute("listaEmployee", lista);
+        model.addAttribute("listaJob", listaJob);
 
         return "employee/lista";
     }
-
+    @GetMapping("nuevo")
     public String nuevoEmployeeForm(Model model) {
 
         List<Department> listaDepart = departmentRepository.findAll();
@@ -51,27 +55,42 @@ public class EmployeeController {
         return "employee/newFrm";
     }
 
-
+    @PostMapping("nuevo")
     public String guardarEmployee(Employees employees, RedirectAttributes attr) {
 
-        attr.addFlashAttribute("mensaje", "")
+        attr.addFlashAttribute("mensaje", "");
         employeesRepository.save(employees);
 
 
         return "";
     }
 
+    @GetMapping("editar")
+    public String editarEmployee(@RequestParam("id") Integer employeeId, Model model, RedirectAttributes attr) {
 
-    public String editarEmployee() {
-        //COMPLETAR
-        return "";
+        Optional<Employees> opt = employeesRepository.findById(employeeId);
+
+        if (opt.isPresent()) {
+            Employees e = opt.get();
+            if (e.getManager() == null) {
+                attr.addFlashAttribute("msg", "Esta acción no está soportada por el momento para Empleados sin jefe");
+                return "redirect:/employee";
+            } else {
+                model.addAttribute("employee", e);
+                model.addAttribute("listaJobs", jobRepository.findAll());
+                model.addAttribute("listaJefes", employeesRepository.findAll());
+                return "employee/editForm";
+            }
+        } else {
+            return "redirect:/employee";
+        }
     }
 
 
-    public String borrarEmpleado() {
-
-        //COMPLETAR
-    return "";
+    public String borrarEmpleado(@RequestParam("id")Integer employeeId, RedirectAttributes attr) {
+        employeesRepository.deleteById(employeeId);
+        attr.addFlashAttribute("msg", "Empleado borrado exitosamente");
+        return "redirect:/employee";
     }
 
     //COMPLETAR
