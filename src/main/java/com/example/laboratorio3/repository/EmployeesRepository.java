@@ -6,12 +6,17 @@ import com.example.laboratorio3.dto.PaisCiudadYdptoMayorA3;
 import com.example.laboratorio3.entity.Employees;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import com.example.laboratorio3.entity.Employees;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 
 @Repository
+
 public interface EmployeesRepository extends JpaRepository<Employees,Integer> {
 
 
@@ -40,7 +45,5 @@ public interface EmployeesRepository extends JpaRepository<Employees,Integer> {
             "GROUP BY d.department_id\n" +
             "HAVING count(d.department_id) > 3", nativeQuery = true)
     List<PaisCiudadYdptoMayorA3> obtenerDepasconmenora3();
-
-//COMPLETAR
 
 }
