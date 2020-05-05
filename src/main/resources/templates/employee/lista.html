@@ -12,10 +12,11 @@
     <div class="container">
         <h1>Lista de Empleados</h1>
         <a class="btn btn-primary mt-4 mb-4" th:href="@{}"></a>                 <!-- COMPLETAR -->
-        <form class="input-group mb-lg-3" method="post" th:action="@{}">                <!-- COMPLETAR -->
-            <!-- COMPLETAR -->
+        <form class="input-group mb-lg-3" method="post" th:action="@{'/employee/search'}">
+            <input type="text" class="form-control" placeholder="Texto a buscar" name="search">
             <div class="input-group-append">
-                <!-- COMPLETAR -->
+                <button class="btn btn-outline-primary ml-2 mr-2" type="submit">Buscar</button>
+                <a th:href="@{'/employee'}" class="btn btn-outline-danger">Limpiar</a>
             </div>
         </form>
 
@@ -24,12 +25,26 @@
             <table class="table table-sm" th:if="${}">
                 <thead>
                 <tr>
-                    <!-- COMPLETAR -->
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th> Puesto</th>
+                    <th> Departamento</th>
+                    <th> Ciudad</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
-                <tbody>
-                <!-- COMPLETAR -->
-                </tbody>
+                <tr th:each="job, info : ${listaEmployee}">
+                    <td th:text="${info.index + 1}"></td>
+                    <td th:text="${job.firstName}"></td>
+                    <td th:text="${job.lastName}"></td>
+                    <td th:text="${job.jobs.job_title}"></td>
+                    <td th:text="${job.department.departmentname}"></td>
+                    <td th:text="${job.department.departmentname}"></td>
+                    <td><a class="btn btn-primary" th:href="@{'/job/edit' + '?id=' + ${job.employeeId}}">Editar</a></td>
+                    <td><a class="btn btn-danger" th:href="@{'/job/delete' + '?id=' + ${job.employeeId}}">Borrar</a></td>
+                </tr>
             </table>
         </div>
     </body>
