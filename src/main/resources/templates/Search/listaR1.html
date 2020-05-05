@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+</head>
+<body class="container">
+<h2>Lista de trabajos</h2>
+
+
+
+<table class="table table-sm" th:if="${lista.size() != 0}">
+    <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Fecha Inicio</th>
+        <th>fECHA fIN</th>
+        <th>pUESTO</th>
+
+    </tr>
+    <tr th:each="re1, info : ${listaReporte1}">
+        <td th:text="${info.index + 1}"></td>
+        <td th:text="${re1.obtenerNombre()}"></td>
+        <td th:text="${re1.obtenerApellido()}"></td>
+        <td th:text="${re1.obtenerFechaInicio()}"></td>
+        <td th:text="${re1.obtenerFechaFin()}"></td>
+        <td th:text="${re1.obtenerPuesto()}"></td>
+
+
+
+    </tr>
+</table>
+</body>
+</html>
