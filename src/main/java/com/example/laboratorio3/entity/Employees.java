@@ -13,12 +13,14 @@ public class Employees {
 
 
         @Id
-        private String employeeId;
+        @GeneratedValue
+        private int employeeId;
         @Column(nullable=false)
         private String firstName;
         private String lastName;
         private String email;
         private String phoneNumber;
+        private String password;
         @Column(nullable=false)
         private Date hireDate;
         @ManyToOne
@@ -32,13 +34,31 @@ public class Employees {
         @ManyToOne
         @JoinColumn(name="manager_id")
         private Employees manager;
+        private int enabled;
 
-        public String getEmployeeId() {
+
+        public String getPassword() {
+                return password;
+        }
+
+        public void setPassword(String password) {
+                this.password = password;
+        }
+
+        public int getEmployeeId() {
                 return employeeId;
         }
 
-        public void setEmployeeId(String employeeId) {
+        public void setEmployeeId(int employeeId) {
                 this.employeeId = employeeId;
+        }
+
+        public Department getDepartment() {
+                return department;
+        }
+
+        public void setDepartment(Department department) {
+                this.department = department;
         }
 
         public String getFirstName() {
@@ -111,6 +131,14 @@ public class Employees {
 
         public void setManager(Employees manager) {
                 this.manager = manager;
+        }
+
+        public int getEnabled() {
+                return enabled;
+        }
+
+        public void setEnabled(int enabled) {
+                this.enabled = enabled;
         }
 
 
